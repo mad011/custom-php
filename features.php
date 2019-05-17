@@ -1,45 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Accordion - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#accordion").accordion();
+
+        });
+    </script>
+</head>
 <?php
-require_once(dirname(__FILE__) . '/features.php');
+require_once(dirname(__FILE__) . '/features.php'); ?>
 
-//$files = glob("media/*.*");
-//echo '<pre>';
-//var_dump(glob('*'));
-//var_dump($files);
-//echo "<pre>";
-//print_r($files);
-//echo "</pre>";
-
-$folders = array_filter(glob('media/*'), 'is_dir');
-
-?>
-    <?php if ($folders) : ?>
-    <div id="category">
+<?php $folders = array_filter(glob('media/*'), 'is_dir'); ?>
+<?php if (($folders)) : ?>
+    <div id="accordion">
         <?php foreach ($folders as $show): ?>
-            <?php echo "<br>"; ?>
-            <li class="tab-link data-tab=tab">
-                <a href="<?php echo $show ?>"><?= $show ?></a>
-            </li>
-            <?php echo(count(glob("$show/*")));
-            foreach ((glob("$show/*")) as $value) { ?>
-                <a target="_blank" rel="noopener noreferrer" href="<?php echo $value ?>"><?= $value ?>></a>
-            <?php } ?>
+            <h3>
+                <?php $hostname = parse_url($show, PHP_URL_PATH); ?>
+                <?php echo preg_replace('/media/', '', $hostname); ?>
+            </h3>
+            <div>
+                <?php foreach ((glob("$show/*.*")) as $value) : ?>
+                    <p>
+                        <a target="_blank" rel="noopener noreferrer" href="<?php echo $value ?>"><?= $value ?></a>
+                    </p>
+                <?php endforeach; ?>
+            </div>
         <?php endforeach; ?>
-        <?php endif; ?>
     </div>
-    <?php ?>
-    <?php $files = glob("media/*.*"); ?>
-    <?php if ($files): ?>
-        <?php for ($i = 0; $i < count($files); $i++): ?>
-            <?php $file = $files[$i]; ?>
-            <?php $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION)); ?>
-            <?php echo "<br>"; ?>
-            <a target="_blank" rel="noopener noreferrer" href="<?php echo $file ?>"><?= $file ?>></a>
-            <!--        --><?php //echo '<img src="' . $file . '" alt="image"/>' . ". <br/><br/>"; ?>
-            <?php continue; ?>
-        <?php endfor; ?>
-    <?php endif; ?>
-<script>
-    $(document).ready(function () {
-        $("#category").tabs();
-    });
-</script>
+<?php endif; ?>
+
+<?php ?>
+<?php $files = glob("media/*.*"); ?>
+<?php if ($files): ?>
+    <?php for ($i = 0; $i < count($files); $i++): ?>
+        <?php $file = $files[$i]; ?>
+        <?php $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION)); ?>
+        <?php echo "<br>"; ?>
+        <?php $host_name = parse_url($file, PHP_URL_PATH); ?>
+        <?php $get = preg_replace('/custom/','', $host_name) ?>
+        <a target="_blank" rel="noopener noreferrer" class="external" href="<?php echo $get?>"> <?= $get ?> </a>
+        <?php continue; ?>
+    <?php endfor; ?>
+<?php endif; ?>
+</body>
+</html>
+
