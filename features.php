@@ -47,7 +47,6 @@ require_once(dirname(__FILE__) . '/features.php'); ?>
 
         <?php
         $end = array_slice(explode('/', rtrim($file, '/')), -1)[0];?>
-<        <?php $get = preg_replace('/custom/','/media/', $host_name) ?>
         <a target="_blank" rel="noopener noreferrer" class="external" href="<?php echo $end?>"> <?= $end ?> </a>
         <?php continue; ?>
     <?php endfor; ?>
