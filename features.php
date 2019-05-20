@@ -38,14 +38,17 @@ require_once(dirname(__FILE__) . '/features.php'); ?>
 
 <?php ?>
 <?php $files = glob("media/*.*"); ?>
+
 <?php if ($files): ?>
     <?php for ($i = 0; $i < count($files); $i++): ?>
         <?php $file = $files[$i]; ?>
         <?php $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION)); ?>
         <?php echo "<br>"; ?>
-        <?php $host_name = parse_url($file, PHP_URL_PATH); ?>
-        <?php $get = preg_replace('/custom/','', $host_name) ?>
-        <a target="_blank" rel="noopener noreferrer" class="external" href="<?php echo $get?>"> <?= $get ?> </a>
+
+        <?php
+        $end = array_slice(explode('/', rtrim($file, '/')), -1)[0];?>
+<        <?php $get = preg_replace('/custom/','/media/', $host_name) ?>
+        <a target="_blank" rel="noopener noreferrer" class="external" href="<?php echo $end?>"> <?= $end ?> </a>
         <?php continue; ?>
     <?php endfor; ?>
 <?php endif; ?>
