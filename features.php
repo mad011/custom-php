@@ -35,19 +35,15 @@ require_once(dirname(__FILE__) . '/features.php'); ?>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-
-<?php ?>
 <?php $files = glob("media/*.*"); ?>
-
 <?php if ($files): ?>
     <?php for ($i = 0; $i < count($files); $i++): ?>
         <?php $file = $files[$i]; ?>
         <?php $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION)); ?>
         <?php echo "<br>"; ?>
-
         <?php
-        $end = array_slice(explode('/', rtrim($file, '/')), -1)[0];?>
-        <a target="_blank" rel="noopener noreferrer" class="external" href="<?php echo $end?>"> <?= $end ?> </a>
+        $end = array_slice(explode('/', rtrim($file, '/')), -1)[0]; ?>
+        <a target="_blank" rel="noopener noreferrer" class="external" href="<?php echo $end ?>"> <?= $end ?> </a>
         <?php continue; ?>
     <?php endfor; ?>
 <?php endif; ?>
